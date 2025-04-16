@@ -10,3 +10,9 @@ terraform {
 provider "azurerm" {
   features {}
 }
+
+provider "helm" {
+  kubernetes {
+    host = azurerm_kubernetes_cluster.aks.kube_config[0].host
+  }
+}
