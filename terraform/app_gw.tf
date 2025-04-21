@@ -62,4 +62,3 @@ resource "azurerm_application_gateway" "appgw" {
     priority                   = 100
   }
 }
-
