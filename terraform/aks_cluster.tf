@@ -22,5 +22,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
     load_balancer_sku = "standard"
     outbound_type     = "userDefinedRouting"
   }
+
+  ingress_application_gateway {
+    gateway_id                 = azurerm_application_gateway.appgw.id
+  }
 }
 
