@@ -31,8 +31,21 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-resource "azurerm_role_assignment" "app_gw_role_assignment" {
+resource "azurerm_role_assignment" "app_gw_contributor_role_assignment" {
   scope                = azurerm_application_gateway.appgw.id
   principal_id         = azurerm_kubernetes_cluster.aks.ingress_application_gateway[0].ingress_application_gateway_identity[0].object_id
   role_definition_name = "Contributor"
+}
+
+resource "azurerm_role_assignment" "vnet_network_contributor_role_assignment" {
+  scope                = azurerm_subnet.appgw_subnet.id
+  principal_id         = azurerm_kubernetes_cluster.aks.ingress_application_gateway[0].ingress_application_gateway_identity[0].object_id
+  role_definition_name = "Network Contributor"
+}
+
+resource "azurerm_role_assignment" "aks_acr_pull_role_assignment" {
+  principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+  role_definition_name             = "AcrPull"
+  scope                            = azurerm_container_registry.cr.id
+  skip_service_principal_aad_check = true
 }

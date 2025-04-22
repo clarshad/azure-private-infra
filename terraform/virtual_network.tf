@@ -20,10 +20,10 @@ resource "azurerm_subnet" "bastion_subnet" {
 }
 
 resource "azurerm_subnet" "vm_subnet" {
-  name                 = "jaguar-db-vm--subnet"
+  name                 = "jaguar-db-vm-subnet"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.241.1.0/24"]
+  address_prefixes     = ["10.243.0.0/24"]
 }
 
 resource "azurerm_subnet" "appgw_subnet" {
