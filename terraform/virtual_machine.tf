@@ -1,10 +1,10 @@
 resource "azurerm_linux_virtual_machine" "bastion" {
-  name                            = "jaguar-bastion-vm"
+  name                            = var.vm.bastion.name
   resource_group_name             = azurerm_resource_group.rg.name
   location                        = var.location
-  size                            = "Standard_B2s"
-  admin_username                  = "jaguar"
-  admin_password                  = "Jaguar@1234"
+  size                            = var.vm.bastion.size
+  admin_username                  = var.vm.bastion.admin_username
+  admin_password                  = var.vm.bastion.admin_password
   network_interface_ids           = [azurerm_network_interface.bastion_nic.id]
   disable_password_authentication = false
 
@@ -30,6 +30,6 @@ resource "azurerm_network_interface" "bastion_nic" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.bastion_subnet.id
     private_ip_address_allocation = "Static"
-    private_ip_address            = "10.241.0.4"
+    private_ip_address            = var.vm.bastion.private_ip_address
   }
 }

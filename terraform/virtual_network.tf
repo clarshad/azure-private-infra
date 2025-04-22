@@ -1,36 +1,36 @@
 resource "azurerm_virtual_network" "vnet" {
-  name                = "jaguar-vnet-aks"
-  address_space       = ["10.0.0.0/8"]
+  name                = var.vnet.name
+  address_space       = var.vnet.address_space
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
 }
 
 resource "azurerm_subnet" "aks_subnet" {
-  name                 = "jaguar-aks-subnet"
+  name                 = var.subnets.aks.name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.240.0.0/16"]
+  address_prefixes     = var.subnets.aks.address_prefix
 }
 
 resource "azurerm_subnet" "bastion_subnet" {
-  name                 = "jaguar-bastion-subnet"
+  name                 = var.subnets.bastion.name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.241.0.0/24"]
+  address_prefixes     = var.subnets.bastion.address_prefix
 }
 
 resource "azurerm_subnet" "vm_subnet" {
-  name                 = "jaguar-db-vm-subnet"
+  name                 = var.subnets.vm_subnet.name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.243.0.0/24"]
+  address_prefixes     = var.subnets.vm_subnet.address_prefix
 }
 
 resource "azurerm_subnet" "appgw_subnet" {
-  name                 = "jaguar-appgw-subnet"
+  name                 = var.subnets.appgw_subnet.name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.242.0.0/24"]
+  address_prefixes     = var.subnets.appgw_subnet.address_prefix
 }
 
 resource "azurerm_route_table" "aks_route_table" {
