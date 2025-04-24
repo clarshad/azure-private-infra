@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-360-master
+spec:
+  selector:
+    app: back-360-master
+  ports:
+  - protocol: TCP
+    port: 8443
+    targetPort: 8443

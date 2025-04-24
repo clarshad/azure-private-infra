@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-360-slave
+  labels:
+    app: back-360-slave
+spec:
+  replicas: 40
+  selector:
+    matchLabels:
+      app: back-360-slave
+  template:
+    metadata:
+      labels:
+        app: back-360-slave
+    spec:
+      containers:
+      - name: back-360
+        image: jaguaracr.azurecr.io/app/back-360:latest
+        env:
+        - name: DB_URL
+          value: "host.docker.internal"
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"
+        resources:
+          requests:
+            cpu: "8000m"
+            memory: "40Gi" 
+        ports:
+        - containerPort: 8443
