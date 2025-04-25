@@ -1,12 +1,12 @@
 variable "location" {
-  default = "eastus"
+  default = "Central India"
 }
 
 variable "vnet" {
   default = {
-    name = "jaguar-vnet-aks"
+    name          = "jaguar-vnet-aks"
     address_space = ["10.0.0.0/8"]
-    }
+  }
 }
 
 variable "subnets" {
@@ -33,10 +33,10 @@ variable "subnets" {
 variable "vm" {
   default = {
     bastion = {
-      name = "jaguar-bastion-vm"
-      size = "Standard_B2s"
-      admin_username = "jaguar"
-      admin_password = "Jaguar@1234"
+      name               = "jaguar-bastion-vm"
+      size               = "Standard_B2s"
+      admin_username     = "jaguar"
+      admin_password     = "Jaguar@1234"
       private_ip_address = "10.241.0.4"
     }
   }
