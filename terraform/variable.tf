@@ -39,5 +39,19 @@ variable "vm" {
       admin_password     = "Jaguar@1234"
       private_ip_address = "10.241.0.4"
     }
+    master_db_server = {
+      name               = "jaguar-master-db-server"
+      size               = "Standard_D96as_v5"
+      admin_username     = "jaguar"
+      admin_password     = "Jaguar@1234"
+      private_ip_address = "10.243.0.4"
+    }
+    replica_db_server = {
+      name               = "jaguar-replica-db-server"
+      size               = "Standard_D48as_v5"
+      admin_username     = "jaguar"
+      admin_password     = "Jaguar@1234"
+      private_ip_address = "10.243.0.5"
+    }
   }
 }
