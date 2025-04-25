@@ -6,7 +6,7 @@ metadata:
   labels:
     app: back-360-master
 spec:
-  replicas: 30
+  replicas: 3
   selector:
     matchLabels:
       app: back-360-master

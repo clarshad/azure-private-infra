@@ -9,16 +9,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   default_node_pool {
     name                 = "nodepool1"
-    vm_size              = "Standard_D8ds_v5"
+    vm_size              = "Standard_D32as_v5"
     vnet_subnet_id       = azurerm_subnet.aks_subnet.id
     auto_scaling_enabled = true
     min_count            = 2
-    max_count            = 50
-    upgrade_settings {
-      drain_timeout_in_minutes      = 30
-      max_surge                     = "50%"
-      node_soak_duration_in_minutes = 10
-    }
+    max_count            = 20
   }
 
   private_cluster_enabled           = true

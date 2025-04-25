@@ -7,8 +7,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: back-360-master
-  minReplicas: 30
-  maxReplicas: 100
+  minReplicas: 3
+  maxReplicas: 30
   metrics:
     - type: Resource
       resource:

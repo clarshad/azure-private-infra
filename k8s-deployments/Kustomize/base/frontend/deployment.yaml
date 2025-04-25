@@ -6,7 +6,7 @@ metadata:
   labels:
     app: app-360
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: app-360
@@ -22,9 +22,9 @@ spec:
         - name: CLIENT_HOST_URL
           value: "http://localhost"
         - name: MASTER_URL
-          value: "http://localhost:8443"
+          value: "back-360-master:8443"
         - name: SLAVE_URL
-          value: "http://localhost:8443"
+          value: "back-360-slave:8443"
         resources:
           requests:
             cpu: "1000m"
