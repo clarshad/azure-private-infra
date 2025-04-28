@@ -1,4 +1,5 @@
 resources:
   - namespace.yaml
+  - backend-master
+  - backend-slave
   - frontend/
-  - backend/

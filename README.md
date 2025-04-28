@@ -1,11 +1,11 @@
 # Azure-Private-Infra
 
-### Steps
+### Setup Infrastructure in Azure
 
 #### Prerequisite
 
-terraform binary installed
-Azure Credentials
+- terraform binary installed
+- Azure Credentials
 
 #### Terraform Apply
 
@@ -22,4 +22,19 @@ export ARM_CLIENT_SECRET=<password or client secret>
 terraform init
 terraform plan
 terraform apply
+```
+Note: Change to `terraform` directory, where all the terraform configuration files are present, before running above commands.
+
+### Deploy application/services in K8s cluster
+
+#### Prerequisite
+
+- Make sure your connected to k8s cluster and have access to deploy pods/services on it.
+
+#### kubectl Apply
+
+- Run below command to deploy frontend, backend services on k8s
+
+```
+kubectl apply -k k8s-deployments/Kustomize/base
 ```
