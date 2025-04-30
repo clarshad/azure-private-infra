@@ -47,6 +47,7 @@ resource "azurerm_linux_virtual_machine" "master_db_server" {
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
+    disk_size_gb         = 512
   }
 
   source_image_reference {
@@ -83,6 +84,7 @@ resource "azurerm_linux_virtual_machine" "replica_db_server" {
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
+    disk_size_gb         = 512
   }
 
   source_image_reference {
