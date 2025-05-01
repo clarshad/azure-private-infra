@@ -20,7 +20,7 @@ spec:
         image: jaguaracr.azurecr.io/app/back-360:latest
         env:
         - name: DB_URL
-          value: "host.docker.internal"
+          value: "10.243.0.5"
         - name: SPRING_PROFILES_ACTIVE
           value: "prod"
         resources:
