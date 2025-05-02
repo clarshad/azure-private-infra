@@ -2,5 +2,5 @@ resources:
   - namespace.yaml
   - backend-master
   - backend-slave
-  - frontend/
+  - frontend
   - ingress.yaml
