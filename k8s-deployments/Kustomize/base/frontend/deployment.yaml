@@ -20,11 +20,11 @@ spec:
         image: jaguaracr.azurecr.io/app/app-360:latest
         env:
         - name: CLIENT_HOST_URL
-          value: "http://localhost"
+          value: "http://4.247.179.82"
         - name: MASTER_URL
-          value: "back-360-master:8443"
+          value: "http://4.247.179.82/master"
         - name: SLAVE_URL
-          value: "back-360-slave:8443"
+          value: "http://4.247.179.82/slave"
         resources:
           requests:
             cpu: "1000m"

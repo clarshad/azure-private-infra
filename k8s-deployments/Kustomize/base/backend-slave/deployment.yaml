@@ -19,6 +19,8 @@ spec:
       - name: back-360
         image: jaguaracr.azurecr.io/app/back-360:latest
         env:
+        - name: DB_PORT
+          value: "5864"
         - name: DB_URL
           value: "10.243.0.5"
         - name: SPRING_PROFILES_ACTIVE

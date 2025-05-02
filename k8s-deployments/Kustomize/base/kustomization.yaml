@@ -3,3 +3,4 @@ resources:
   - backend-master
   - backend-slave
   - frontend/
+  - ingress.yaml
