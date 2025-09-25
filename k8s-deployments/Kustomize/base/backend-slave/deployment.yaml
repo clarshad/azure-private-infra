@@ -6,7 +6,11 @@ metadata:
   labels:
     app: back-360-slave
 spec:
-  replicas: 3
+  replicas: 2
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: back-360-slave
@@ -17,14 +21,17 @@ spec:
     spec:
       containers:
       - name: back-360
-        image: jaguaracr.azurecr.io/app/back-360:latest
+        image: jaguaracr.azurecr.io/app/slave:latest
+        imagePullPolicy: Always
         env:
         - name: DB_PORT
           value: "5864"
-        - name: DB_URL
+        - name: DB_HOST
           value: "10.243.0.5"
         - name: SPRING_PROFILES_ACTIVE
           value: "prod"
+        - name: DB_ROLE
+          value: "/slave"
         resources:
           requests:
             cpu: "8000m"

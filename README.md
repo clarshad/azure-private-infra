@@ -38,3 +38,25 @@ Note: Change to `terraform` directory, where all the terraform configuration fil
 ```
 kubectl apply -k k8s-deployments/Kustomize/base
 ```
+
+### Steps to install cert-manager
+
+1. Install cert-manager 
+
+```
+helm repo add jetstack https://charts.jetstack.io --force-update
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.17.2 \
+  --set crds.enabled=true
+```
+
+2. Install Cluster Issuer and Certificate resource as below. 
+
+```
+kubectl apply -f cert-manager/cluster-issuer-http.yaml
+kubectl apply -f cert-manager/certificate.yaml
+```
+Note: Above uses lets encrypt to generate the TLS certificate

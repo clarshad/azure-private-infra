@@ -3,4 +3,6 @@ resources:
   - backend-master
   - backend-slave
   - frontend
+  - crud
+  - call-calc
   - ingress.yaml

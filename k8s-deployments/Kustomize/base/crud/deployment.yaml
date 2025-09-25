@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crud
+  labels:
+    app: crud
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: crud
+  template:
+    metadata:
+      labels:
+        app: crud
+    spec:
+      containers:
+      - name: crud
+        image: jaguaracr.azurecr.io/app/crud:latest
+        imagePullPolicy: Always
+        env:
+        - name: DB_URL
+          value: "postgres://postgres:postgres@10.243.0.5:5864/nbfc"     
+        resources:
+          requests:
+            cpu: "4000m"
+            memory: "10Gi"
+        ports:
+          - containerPort: 3000

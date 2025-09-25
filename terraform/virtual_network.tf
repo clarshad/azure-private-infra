@@ -10,6 +10,7 @@ resource "azurerm_subnet" "aks_subnet" {
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.subnets.aks.address_prefix
+  service_endpoints = ["Microsoft.Storage"]
 }
 
 resource "azurerm_subnet" "bastion_subnet" {
@@ -17,6 +18,7 @@ resource "azurerm_subnet" "bastion_subnet" {
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.subnets.bastion.address_prefix
+  service_endpoints = ["Microsoft.Storage"]
 }
 
 resource "azurerm_subnet" "vm_subnet" {
@@ -24,6 +26,7 @@ resource "azurerm_subnet" "vm_subnet" {
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.subnets.vm_subnet.address_prefix
+  service_endpoints = ["Microsoft.Storage"]
 }
 
 resource "azurerm_subnet" "appgw_subnet" {
@@ -31,6 +34,16 @@ resource "azurerm_subnet" "appgw_subnet" {
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.subnets.appgw_subnet.address_prefix
+  service_endpoints = ["Microsoft.Storage"]
+}
+
+resource "azurerm_subnet" "storage_subnet" {
+  name                 = var.subnets.storage_subnet.name
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = var.subnets.storage_subnet.address_prefix
+  private_endpoint_network_policies = "Enabled"
+  service_endpoints = ["Microsoft.Storage"]
 }
 
 resource "azurerm_route_table" "aks_route_table" {

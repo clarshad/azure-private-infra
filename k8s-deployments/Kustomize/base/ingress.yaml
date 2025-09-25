@@ -6,9 +6,16 @@ metadata:
   namespace: app-360
   annotations:
     kubernetes.io/ingress.class: azure/application-gateway
+    appgw.ingress.kubernetes.io/request-timeout: "3600"
+    cert-manager.io/cluster-issuer: letsencrypt-http
 spec:
+  tls:
+  - hosts:
+    - akasa-fin.in
+    secretName: jaguar-tls-secret
   rules:
-  - http:
+  - host: akasa-fin.in
+    http:
       paths:
       - path: /
         backend:
@@ -17,8 +24,6 @@ spec:
             port:
               number: 80
         pathType: Prefix
-  - http:
-      paths:
       - path: /master
         backend:
           service:
@@ -26,12 +31,24 @@ spec:
             port:
               number: 8443
         pathType: Prefix
-  - http:
-      paths:
       - path: /slave
         backend:
           service:
             name: back-360-slave
             port:
               number: 8443
+        pathType: Prefix
+      - path: /crud
+        backend:
+          service:
+            name: crud
+            port:
+              number: 3000
+        pathType: Prefix
+      - path: /callCalc
+        backend:
+          service:
+            name: call-calc
+            port:
+              number: 3000
         pathType: Prefix

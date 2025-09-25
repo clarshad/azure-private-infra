@@ -31,6 +31,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
   ingress_application_gateway {
     gateway_id = azurerm_application_gateway.appgw.id
   }
+
+  lifecycle {
+    ignore_changes = [
+      default_node_pool[0].upgrade_settings
+    ]
+  }
 }
 
 resource "azurerm_role_assignment" "app_gw_contributor_role_assignment" {

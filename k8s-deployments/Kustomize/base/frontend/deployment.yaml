@@ -20,11 +20,13 @@ spec:
         image: jaguaracr.azurecr.io/app/app-360:latest
         env:
         - name: CLIENT_HOST_URL
-          value: "http://4.247.179.82"
+          value: "https://akasa-fin.in"
         - name: MASTER_URL
-          value: "http://4.247.179.82/master"
+          value: "https://akasa-fin.in/master/"
         - name: SLAVE_URL
-          value: "http://4.247.179.82/slave"
+          value: "https://akasa-fin.in/slave/"
+        - name: CRUD_URL
+          value: "https://akasa-fin.in/crud/"
         resources:
           requests:
             cpu: "1000m"

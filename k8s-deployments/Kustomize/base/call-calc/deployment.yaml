@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: call-calc
+  labels:
+    app: call-calc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: call-calc
+  template:
+    metadata:
+      labels:
+        app: call-calc
+    spec:
+      containers:
+      - name: call-calc
+        image: jaguaracr.azurecr.io/app/call-calc:latest
+        imagePullPolicy: Always
+        env:
+        - name: IP
+          value: "10.243.0.5:3000"
+        - name: DB_URL
+          value: "postgres://postgres:postgres@10.243.0.4:5864/nbfc"             
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "1Gi"
+        ports:
+          - containerPort: 3000

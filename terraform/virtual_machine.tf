@@ -107,3 +107,79 @@ resource "azurerm_network_interface" "replica_db_server_nic" {
     private_ip_address            = var.vm.replica_db_server.private_ip_address
   }
 }
+
+# UAT Environment VMs
+# UAT DB Server and associated NIC
+resource "azurerm_network_interface" "uat_db_server_nic" {
+  name                = "jaguar-uat-db-server-nic"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.vm_subnet.id
+    private_ip_address_allocation = "Static"
+    private_ip_address            = var.vm.uat_db_server.private_ip_address
+  }
+}
+
+resource "azurerm_linux_virtual_machine" "uat_db_server" {
+  name                            = var.vm.uat_db_server.name
+  resource_group_name             = azurerm_resource_group.rg.name
+  location                        = var.location
+  size                            = var.vm.uat_db_server.size # Should map to a 6vCPU/24GB size like Standard_D8s_v3
+  admin_username                  = var.vm.uat_db_server.admin_username
+  admin_password                  = var.vm.uat_db_server.admin_password
+  network_interface_ids           = [azurerm_network_interface.uat_db_server_nic.id]
+  disable_password_authentication = false
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+    disk_size_gb         = 512 # Same as master_db_server
+  }
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts"
+    version   = "latest"
+  }
+}
+
+# UAT APP Server and associated NIC
+resource "azurerm_network_interface" "uat_app_nic" {
+  name                = "jaguar-uat-app-nic"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.vm_subnet.id
+    private_ip_address_allocation = "Static"
+    private_ip_address            = var.vm.uat_app.private_ip_address
+  }
+}
+
+resource "azurerm_linux_virtual_machine" "uat_app" {
+  name                            = var.vm.uat_app.name
+  resource_group_name             = azurerm_resource_group.rg.name
+  location                        = var.location
+  size                            = var.vm.uat_app.size
+  admin_username                  = var.vm.uat_app.admin_username
+  admin_password                  = var.vm.uat_app.admin_password
+  network_interface_ids           = [azurerm_network_interface.uat_app_nic.id]
+  disable_password_authentication = false
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts"
+    version   = "latest"
+  }
+}

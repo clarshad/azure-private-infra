@@ -27,6 +27,10 @@ variable "subnets" {
       name           = "jaguar-appgw-subnet"
       address_prefix = ["10.242.0.0/24"]
     }
+    storage_subnet = {
+      name           = "jaguar-storage-subnet"
+      address_prefix = ["10.244.0.0/24"]
+    }
   }
 }
 
@@ -52,6 +56,20 @@ variable "vm" {
       admin_username     = "jaguar"
       admin_password     = "Jaguar@1234"
       private_ip_address = "10.243.0.5"
+    }
+    uat_db_server = {
+      name               = "jaguar-uat-db-server"
+      size               = "Standard_D8as_v5"
+      admin_username     = "jaguar"
+      admin_password     = "Jaguar@1234"
+      private_ip_address = "10.243.0.6"
+    }
+    uat_app = {
+      name               = "jaguar-uat-app-server"
+      size               = "Standard_D2as_v5"
+      admin_username     = "jaguar"
+      admin_password     = "Jaguar@1234"
+      private_ip_address = "10.243.0.7"
     }
   }
 }

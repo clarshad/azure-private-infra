@@ -45,7 +45,7 @@ resource "azurerm_application_gateway" "appgw" {
     cookie_based_affinity = "Disabled"
     port                  = 80
     protocol              = "Http"
-    request_timeout       = 30
+    request_timeout       = 3600
   }
   http_listener {
     name                           = local.listener_name
@@ -60,5 +60,21 @@ resource "azurerm_application_gateway" "appgw" {
     backend_address_pool_name  = local.backend_address_pool_name
     backend_http_settings_name = local.http_setting_name
     priority                   = 100
+  }
+   lifecycle {
+    ignore_changes = [
+      backend_address_pool,
+      backend_http_settings,
+      http_listener,
+      request_routing_rule,
+      url_path_map,
+      probe,
+      ssl_certificate,
+      ssl_policy,
+      redirect_configuration,
+      rewrite_rule_set,
+      frontend_port,
+      tags
+    ]
   }
 }
